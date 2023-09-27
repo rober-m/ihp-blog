@@ -9,8 +9,8 @@ import Web.Controller.Posts
 import Web.Controller.Static
 
 instance FrontController WebApplication where
-    controllers = 
-        [ startPage WelcomeAction
+    controllers =
+        [ startPage PostsAction
         -- Generator Marker
         , parseRoute @PostsController
         ]
