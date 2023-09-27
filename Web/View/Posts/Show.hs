@@ -1,4 +1,5 @@
 module Web.View.Posts.Show where
+import qualified Text.MMark as MMark
 import Web.View.Prelude
 
 newtype ShowView = ShowView { post :: Post }
@@ -8,7 +9,7 @@ instance View ShowView where
         {breadcrumb}
         <h1>{post.title}</h1>
         <p>{timeAgo post.createdAt}</p>
-        <p>{post.body}</p>
+        <p>{renderMarkdown post.body}</p>
 
     |]
         where
@@ -16,3 +17,8 @@ instance View ShowView where
                             [ breadcrumbLink "Posts" PostsAction
                             , breadcrumbText "Show Post"
                             ]
+
+            renderMarkdown :: Text -> Html
+            renderMarkdown text = case MMark.parse "" text of
+                Left _   -> "Invalid markdown!"
+                Right md -> preEscapedToHtml . show . MMark.render $ md
