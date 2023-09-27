@@ -7,6 +7,7 @@ instance View ShowView where
     html ShowView { .. } = [hsx|
         {breadcrumb}
         <h1>{post.title}</h1>
+        <p>{timeAgo post.createdAt}</p>
         <p>{post.body}</p>
 
     |]
