@@ -1,7 +1,7 @@
 module Web.View.Comments.Edit where
 import Web.View.Prelude
 
-data EditView = EditView { comment :: Comment }
+newtype EditView = EditView { comment :: Comment }
 
 instance View EditView where
     html EditView { .. } = [hsx|
@@ -11,7 +11,7 @@ instance View EditView where
     |]
         where
             breadcrumb = renderBreadcrumb
-                [ breadcrumbLink "Comments" CommentsAction
+                [ breadcrumbLink "Post" $ ShowPostAction comment.postId
                 , breadcrumbText "Edit Comment"
                 ]
 

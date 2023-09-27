@@ -1,7 +1,7 @@
 module Web.View.Comments.Show where
 import Web.View.Prelude
 
-data ShowView = ShowView { comment :: Comment }
+newtype ShowView = ShowView { comment :: Comment }
 
 instance View ShowView where
     html ShowView { .. } = [hsx|
@@ -12,6 +12,6 @@ instance View ShowView where
     |]
         where
             breadcrumb = renderBreadcrumb
-                            [ breadcrumbLink "Comments" CommentsAction
+                            [ breadcrumbLink "Post" $ ShowPostAction comment.postId
                             , breadcrumbText "Show Comment"
                             ]

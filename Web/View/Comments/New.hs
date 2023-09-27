@@ -1,7 +1,7 @@
 module Web.View.Comments.New where
 import Web.View.Prelude
 
-data NewView = NewView { comment :: Comment }
+newtype NewView = NewView { comment :: Comment }
 
 instance View NewView where
     html NewView { .. } = [hsx|
@@ -11,7 +11,7 @@ instance View NewView where
     |]
         where
             breadcrumb = renderBreadcrumb
-                [ breadcrumbLink "Comments" CommentsAction
+                [ breadcrumbLink "Post" $ ShowPostAction comment.postId
                 , breadcrumbText "New Comment"
                 ]
 
